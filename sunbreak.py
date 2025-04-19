@@ -85,7 +85,7 @@ pointers = [
 	('Great Wirebug Launch Points Discovered', guild_card, [0x70, 0x54], 'int'),
 	('Golden Spiribugs Collected', guild_card, [0x70, 0x58], 'int'),
 	('Hunting Helpers Collected', guild_card, [0x70, 0x5C], 'int'),
-	('Shabby Canyne Saddle Time', guild_card, [0x70, 0x68], 'double'),
+	('Time Spent on Canyne', guild_card, [0x70, 0x68], 'double'),
 	('Quests Completed - Village Quests', guild_card, [0x70, 0xA0], 'int'),
 	('Quests Completed - Low Rank Hub Quests', guild_card, [0x70, 0xA4], 'int'),
 	('Quests Completed - High Rank Hub Quests', guild_card, [0x70, 0xA8], 'int'),
