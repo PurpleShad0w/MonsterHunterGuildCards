@@ -47,6 +47,23 @@ def read_pointer_var(var : str, base_address: int, offsets: list[int], var_type:
 	data.update({var : value})
 
 
+unused_pointers = [
+	('Play Time', guild_card, [0x68, 0xD18], 'double'), # temporary
+	('Times Liked', guild_card, [0x68, 0xD20], 'int'), # temporary
+	('Total Monsters Hunted', guild_card, [0x68, 0xD24], 'int'), # temporary
+	('Total Monsters Captured', guild_card, [0x68, 0xD28], 'int'), # temporary
+	('Felyne Count', guild_card, [0x68, 0xD2C], 'int'), # temporary, regular version not found
+	('Canyne Count', guild_card, [0x68, 0xD30], 'int'), # temporary, regular version not found
+	('Total Zenny Obtained', guild_card, [0x68, 0xD34], 'int'), # temporary, regular version not found
+	('Monster Most Hunted ID ???', guild_card, [0x68, 0xD38], 'int'), # temporary, regular version not found, unconfirmed
+	('Endemic Lifes Encountered', guild_card, [0x68, 0xD3C], 'int'), # temporary, regular version not found
+	('Monster Types Hunted', guild_card, [0x68, 0xD40], 'int'), # temporary, regular version not found
+	('Usable Titles', guild_card, [0x68, 0xD44], 'int'), # temporary, regular version not found
+	('Awards Owned', guild_card, [0x68, 0xD48], 'int'), # temporary, regular version not found
+	('Follower Most Used ID ???', guild_card, [0x68, 0xD4C], 'int'), # temporary, regular version not found, unconfirmed
+	('???', guild_card, [0x68, 0xD50], 'int'), # temporary, unconfirmed
+]
+
 pointers = [
 	('Play Time', guild_card, [0x70, 0x40], 'double'),
 	('Quests Completed - Shrine Ruins', guild_card, [0x70, 0xD0, 0x24], 'int'),
@@ -335,5 +352,6 @@ pointers = [
 for pointer in pointers:
 	read_pointer_var(*pointer)
 
-data = pd.DataFrame([[k, v] for k, v in data.items()], columns=['Variable', 'Value'])
-data.to_csv(r'processing/raw_sunbreak.tsv', sep='\t', index=False)
+df = pd.DataFrame.from_records(data, index=['Value']).T
+df.reset_index(inplace=True, names='Variable')
+df.to_csv(r'processing/raw_sunbreak.tsv', sep='\t', index=False)
