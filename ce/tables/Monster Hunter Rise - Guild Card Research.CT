@@ -4,7 +4,7 @@
     <CheatEntry>
       <ID>1337096446</ID>
       <Description>"Define Symbols"</Description>
-      <LastState Activated="1"/>
+      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 
@@ -26,14 +26,14 @@ unregistersymbol(save_data)
     </CheatEntry>
     <CheatEntry>
       <ID>1337096463</ID>
-      <Description>"Proper Variables"</Description>
+      <Description>"New Variables"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
           <ID>1337096450</ID>
           <Description>"Times Liked"</Description>
-          <LastState Value="1153" RealAddress="1A89DFE5F18"/>
+          <LastState Value="1169" RealAddress="1D79DFA7ED8"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>
           <Address>guild_card</Address>
@@ -45,7 +45,7 @@ unregistersymbol(save_data)
         <CheatEntry>
           <ID>1337096453</ID>
           <Description>"Wiredashes Performed"</Description>
-          <LastState Value="11803" RealAddress="1A89DFE5F1C"/>
+          <LastState Value="11821" RealAddress="1D79DFA7EDC"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>
           <Address>guild_card</Address>
@@ -57,7 +57,7 @@ unregistersymbol(save_data)
         <CheatEntry>
           <ID>1337096454</ID>
           <Description>"Great Wirebug Launch Points Discovered"</Description>
-          <LastState Value="61" RealAddress="1A89DFE5F24"/>
+          <LastState Value="61" RealAddress="1D79DFA7EE4"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>
           <Address>guild_card</Address>
@@ -76,7 +76,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337095710</ID>
               <Description>"Shrine Ruins"</Description>
-              <LastState Value="142" RealAddress="1A89DFE72F4"/>
+              <LastState Value="142" RealAddress="1D79DFA92B4"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -89,7 +89,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337095716</ID>
               <Description>"Sandy Plains"</Description>
-              <LastState Value="115" RealAddress="1A89DFE72F8"/>
+              <LastState Value="115" RealAddress="1D79DFA92B8"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -102,7 +102,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337095715</ID>
               <Description>"Flooded Forest"</Description>
-              <LastState Value="98" RealAddress="1A89DFE72FC"/>
+              <LastState Value="98" RealAddress="1D79DFA92BC"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -115,7 +115,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337095714</ID>
               <Description>"Frost Islands"</Description>
-              <LastState Value="121" RealAddress="1A89DFE7300"/>
+              <LastState Value="121" RealAddress="1D79DFA92C0"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -128,7 +128,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337095717</ID>
               <Description>"Lava Caverns"</Description>
-              <LastState Value="106" RealAddress="1A89DFE7304"/>
+              <LastState Value="106" RealAddress="1D79DFA92C4"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -141,7 +141,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337096455</ID>
               <Description>"Red Stronghold"</Description>
-              <LastState Value="51" RealAddress="1A89DFE730C"/>
+              <LastState Value="51" RealAddress="1D79DFA92CC"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -154,7 +154,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337096456</ID>
               <Description>"Infernal Springs"</Description>
-              <LastState Value="48" RealAddress="1A89DFE7314"/>
+              <LastState Value="48" RealAddress="1D79DFA92D4"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -167,7 +167,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337096457</ID>
               <Description>"Arena"</Description>
-              <LastState Value="91" RealAddress="1A89DFE7318"/>
+              <LastState Value="92" RealAddress="1D79DFA92D8"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -180,7 +180,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337096458</ID>
               <Description>"Coral Palace"</Description>
-              <LastState Value="20" RealAddress="1A89DFE731C"/>
+              <LastState Value="20" RealAddress="1D79DFA92DC"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -193,7 +193,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337096459</ID>
               <Description>"Jungle"</Description>
-              <LastState Value="73" RealAddress="1A89DFE7320"/>
+              <LastState Value="73" RealAddress="1D79DFA92E0"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -206,7 +206,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337096460</ID>
               <Description>"Citadel"</Description>
-              <LastState Value="95" RealAddress="1A89DFE7324"/>
+              <LastState Value="95" RealAddress="1D79DFA92E4"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -219,7 +219,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337096461</ID>
               <Description>"Forlorn Arena"</Description>
-              <LastState Value="74" RealAddress="1A89DFE7328"/>
+              <LastState Value="80" RealAddress="1D79DFA92E8"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -232,7 +232,7 @@ unregistersymbol(save_data)
             <CheatEntry>
               <ID>1337096462</ID>
               <Description>"Yawning Abyss"</Description>
-              <LastState Value="11" RealAddress="1A89DFE732C"/>
+              <LastState Value="11" RealAddress="1D79DFA92EC"/>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>guild_card</Address>
@@ -247,7 +247,7 @@ unregistersymbol(save_data)
         <CheatEntry>
           <ID>1337095651</ID>
           <Description>"Master Rank Hub Quests"</Description>
-          <LastState Value="251" RealAddress="1A89DFE5F84"/>
+          <LastState Value="251" RealAddress="1D79DFA7F44"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>
           <Address>guild_card</Address>
@@ -259,7 +259,7 @@ unregistersymbol(save_data)
         <CheatEntry>
           <ID>1337096465</ID>
           <Description>"Support Surveys"</Description>
-          <LastState Value="26" RealAddress="1A89DFE5F88"/>
+          <LastState Value="26" RealAddress="1D79DFA7F48"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>
           <Address>guild_card</Address>
@@ -271,7 +271,7 @@ unregistersymbol(save_data)
         <CheatEntry>
           <ID>1337096466</ID>
           <Description>"Follower Quests"</Description>
-          <LastState Value="33" RealAddress="1A89DFE5F8C"/>
+          <LastState Value="33" RealAddress="1D79DFA7F4C"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>
           <Address>guild_card</Address>
@@ -283,7 +283,7 @@ unregistersymbol(save_data)
         <CheatEntry>
           <ID>1337096467</ID>
           <Description>"Anomaly Quests"</Description>
-          <LastState Value="42" RealAddress="1A89DFE5F90"/>
+          <LastState Value="42" RealAddress="1D79DFA7F50"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>
           <Address>guild_card</Address>
@@ -295,7 +295,7 @@ unregistersymbol(save_data)
         <CheatEntry>
           <ID>1337096468</ID>
           <Description>"Anomaly Investigations"</Description>
-          <LastState Value="204" RealAddress="1A89DFE5F94"/>
+          <LastState Value="211" RealAddress="1D79DFA7F54"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>
           <Address>guild_card</Address>
@@ -304,180 +304,15 @@ unregistersymbol(save_data)
             <Offset>70</Offset>
           </Offsets>
         </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>1337096464</ID>
-      <Description>"Temporary Variables"</Description>
-      <LastState Value="" RealAddress="00000000"/>
-      <GroupHeader>1</GroupHeader>
-      <CheatEntries>
         <CheatEntry>
-          <ID>1337096441</ID>
-          <Description>"Play Time"</Description>
-          <LastState Value="0" RealAddress="1A89DE9BB88"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>Double</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D18</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096440</ID>
-          <Description>"Times Liked"</Description>
-          <LastState Value="2704830032" RealAddress="1A89DE9BB90"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D20</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096439</ID>
-          <Description>"Total Monsters Hunted"</Description>
-          <LastState Value="424" RealAddress="1A89DE9BB94"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D24</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096438</ID>
-          <Description>"Total Monsters Captured"</Description>
-          <LastState Value="1" RealAddress="1A89DE9BB98"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D28</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096437</ID>
-          <Description>"Felyne Count"</Description>
-          <LastState Value="524288" RealAddress="1A89DE9BB9C"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D2C</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096435</ID>
-          <Description>"Canyne Count"</Description>
-          <LastState Value="2691661856" RealAddress="1A89DE9BBA0"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D30</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096434</ID>
+          <ID>1337096469</ID>
           <Description>"Total Zenny Obtained"</Description>
-          <LastState Value="424" RealAddress="1A89DE9BBA4"/>
+          <LastState Value="21362556" RealAddress="1D79E8D26DC"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
+          <Address>"MonsterHunterRise.exe"+0F6F2E20</Address>
           <Offsets>
-            <Offset>D34</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096442</ID>
-          <Description>"Monster Most Hunted ID ???"</Description>
-          <LastState Value="1" RealAddress="1A89DE9BBA8"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D38</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096443</ID>
-          <Description>"Endemic Lifes Encountered"</Description>
-          <LastState Value="589824" RealAddress="1A89DE9BBAC"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D3C</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096444</ID>
-          <Description>"Monster Types Hunted"</Description>
-          <LastState Value="2570072240" RealAddress="1A89DE9BBB0"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D40</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096445</ID>
-          <Description>"Usable Titles"</Description>
-          <LastState Value="424" RealAddress="1A89DE9BBB4"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D44</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096447</ID>
-          <Description>"Awards Owned"</Description>
-          <LastState Value="2570072272" RealAddress="1A89DE9BBB8"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D48</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096448</ID>
-          <Description>"Follower Most Used ID ???"</Description>
-          <LastState Value="424" RealAddress="1A89DE9BBBC"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D4C</Offset>
-            <Offset>68</Offset>
-          </Offsets>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1337096449</ID>
-          <Description>"???"</Description>
-          <LastState Value="2570072304" RealAddress="1A89DE9BBC0"/>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>4 Bytes</VariableType>
-          <Address>guild_card</Address>
-          <Offsets>
-            <Offset>D50</Offset>
-            <Offset>68</Offset>
+            <Offset>7CC</Offset>
           </Offsets>
         </CheatEntry>
       </CheatEntries>
@@ -487,6 +322,5 @@ unregistersymbol(save_data)
   <Comments>This table was created for research purposes (extraction of the Guild Card data), as such it is not meant for actual use.
 
 However, it can be used, and if so should be used as an addon to Marcus' table. I have only added variables not already present in the table, or otherwise differently accessed.
-
-As far as I know, variables in the 'Proper' category should be editable, the ones in the 'Temporary' category obviously shouldn't be touched, they exist solely to inform me on the structure of the data.</Comments>
+</Comments>
 </CheatTable>
