@@ -5,9 +5,7 @@ df = pd.read_csv(r'processing/raw_sunbreak.tsv', sep='\t')
 
 df.loc[len(df)] = ['Total Monsters Slain', df.loc[df['Variable'] == 'Total Monsters Hunted', 'Value'].values[0] - df.loc[df['Variable'] == 'Total Monsters Captured', 'Value'].values[0]]
 
-df.loc[df['Variable'] == 'Play Time', 'Variable'] = 'Play Time (s)'
 df.loc[len(df)] = ['Play Time (hrs)', df.loc[df['Variable'] == 'Play Time (s)', 'Value'].values[0] / 3600]
-df.loc[df['Variable'] == 'Time Spent on Canyne', 'Variable'] = 'Time Spent on Canyne (s)'
 df.loc[len(df)] = ['Time Spent on Canyne (hrs)', df.loc[df['Variable'] == 'Time Spent on Canyne (s)', 'Value'].values[0] / 3600]
 
 hunted = df[df['Variable'].str.startswith('Hunting Log - Hunted -')]
