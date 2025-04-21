@@ -6,10 +6,11 @@ pm = pymem.Pymem('MonsterHunterRise.exe')
 module = pymem.process.module_from_name(pm.process_handle, "MonsterHunterRise.exe")
 base = module.lpBaseOfDll
 
-player_zenny = base + 0xF6F02E0
+activity_log = base + 0xF625B28
 guild_card = base + 0xF6E3650
-hunter_rank = base + 0xF6FA348
+player_zenny = base + 0xF6F02E0
 save_data = base + 0xF6F7438
+hunter_rank = base + 0xF6FA348
 data = {}
 
 
@@ -24,8 +25,6 @@ def read_pointer_var(var : str, base_address: int, offsets: list[int], var_type:
 	match var_type:
 		case 'int':
 			value = pm.read_int(final_address)
-		case 'uint':
-			value = pm.read_uint(final_address)
 		case 'float':
 			value = pm.read_float(final_address)
 		case 'double':
@@ -34,14 +33,13 @@ def read_pointer_var(var : str, base_address: int, offsets: list[int], var_type:
 			value = pm.read_bool(final_address)
 		case 'long':
 			value = pm.read_long(final_address)
-		case 'ulong':
-			value = pm.read_ulong(final_address)
 		case 'longlong':
 			value = pm.read_longlong(final_address)
-		case 'ulonglong':
-			value = pm.read_ulonglong(final_address)
 		case 'string':
 			value = pm.read_string(final_address, length)
+		case 'utf16':
+			raw_bytes = pm.read_bytes(final_address, length)
+			value = raw_bytes.decode('utf-16le').rstrip('\x00')
 		case 'binary':
 			if not 0 <= length <= 7:
 				raise ValueError("Bit index for 'binary' must be between 0 and 7.")
@@ -54,26 +52,28 @@ def read_pointer_var(var : str, base_address: int, offsets: list[int], var_type:
 
 
 unused_pointers = [
-	('Play Time', guild_card, [0x68, 0xD18], 'double'), # temporary
-	('Times Liked', guild_card, [0x68, 0xD20], 'int'), # temporary
-	('Total Monsters Hunted', guild_card, [0x68, 0xD24], 'int'), # temporary
-	('Total Monsters Captured', guild_card, [0x68, 0xD28], 'int'), # temporary
-	('Felyne Count', guild_card, [0x68, 0xD2C], 'int'), # temporary, regular version not found
-	('Canyne Count', guild_card, [0x68, 0xD30], 'int'), # temporary, regular version not found
-	('Total Zenny Obtained', guild_card, [0x68, 0xD34], 'int'), # temporary, regular version not found
-	('Monster Most Hunted ID ???', guild_card, [0x68, 0xD38], 'int'), # temporary, regular version not found, unconfirmed
-	('Endemic Lifes Encountered', guild_card, [0x68, 0xD3C], 'int'), # temporary, regular version not found
-	('Monster Types Hunted', guild_card, [0x68, 0xD40], 'int'), # temporary, regular version not found
-	('Usable Titles', guild_card, [0x68, 0xD44], 'int'), # temporary, regular version not found
-	('Awards Owned', guild_card, [0x68, 0xD48], 'int'), # temporary, regular version not found
-	('Follower Most Used ID ???', guild_card, [0x68, 0xD4C], 'int'), # temporary, regular version not found, unconfirmed
-	('???', guild_card, [0x68, 0xD50], 'int'), # temporary, unconfirmed
+	('Play Time (s)', activity_log, [0x68, 0x128], 'double'),
+	('Times Liked', activity_log, [0x68, 0x130], 'int'),
+	('Total Monsters Hunted', activity_log, [0x68, 0x134], 'int'),
+	('Total Monsters Captured', activity_log, [0x68, 0x138], 'int'),
+	('Felyne Count', activity_log, [0x68, 0x13C], 'int'),
+	('Canyne Count', activity_log, [0x68, 0x140], 'int'),
+	('Total Zenny Obtained', activity_log, [0x68, 0x144], 'int'),
+	('Monster Most Hunted ID', activity_log, [0x68, 0x148], 'int'),
+	('Endemic Lifes Encountered', activity_log, [0x68, 0x14C], 'int'),
+	('Hunted Monster Types', activity_log, [0x68, 0x150], 'int'),
+	('Usable Titles', activity_log, [0x68, 0x154], 'int'),
+	('Awards Owned', activity_log, [0x68, 0x158], 'int'),
+	('Follower Most Used ID', activity_log, [0x68, 0x15C], 'int'),
+	('', activity_log, [0x68, 0x160], 'int'),
 ]
 
 pointers = [
-	('Hunter Name', save_data, [0xC0, 0x18, 0x20, 0x10, 0x14], 'string', 16),
+	('Hunter Name', save_data, [0xC0, 0x18, 0x20, 0x10, 0x14], 'utf16', 16),
 	('Zenny', player_zenny, [0x58, 0x18], 'int'),
+	('Total Zenny Obtained', player_zenny, [0x58, 0x1C], 'int'),
 	('Kamura Points', player_zenny, [0x60, 0x10], 'int'),
+	('Total Kamura Points Obtained', player_zenny, [0x60, 0x14], 'int'),
 	('Hunter Rank', hunter_rank, [0x68, 0x18], 'int'),
 	('Hunter Rank Experience', hunter_rank, [0x68, 0x1C], 'int'),
 	('Master Rank', hunter_rank, [0x68, 0x20], 'int'),
@@ -98,7 +98,7 @@ pointers = [
 	('Quests Completed - Type - Follower Quests', guild_card, [0x70, 0xBC], 'int'),
 	('Quests Completed - Type - Anomaly Quests', guild_card, [0x70, 0xC0], 'int'),
 	('Quests Completed - Type - Anomaly Investigations', guild_card, [0x70, 0xC4], 'int'),
-	('Quests Completed - Type - Join Requests', guild_card, [0x70, 0xC8], 'int'),
+	('Quests Completed - Type - Event Quests', guild_card, [0x70, 0xC8], 'int'),
 	('Quests Completed - Location - Shrine Ruins', guild_card, [0x70, 0xD0, 0x24], 'int'),
 	('Quests Completed - Location - Sandy Plains', guild_card, [0x70, 0xD0, 0x28], 'int'),
 	('Quests Completed - Location - Flooded Forest', guild_card, [0x70, 0xD0, 0x2C], 'int'),
@@ -114,6 +114,86 @@ pointers = [
 	('Quests Completed - Location - Yawning Abyss', guild_card, [0x70, 0xD0, 0x5C], 'int'),
 	('Total Monsters Hunted', guild_card, [0x70, 0xDC], 'int'),
 	('Total Monsters Captured', guild_card, [0x70, 0xE0], 'int'),
+	('Hunting Log - Special Investigation Completed - Rathian', guild_card, [0x70, 0x110, 0x40], 'binary', 0),
+	('Hunting Log - Special Investigation Completed - Apex Rathian', guild_card, [0x70, 0x110, 0x40], 'binary', 1),
+	('Hunting Log - Special Investigation Completed - Rathalos', guild_card, [0x70, 0x110, 0x40], 'binary', 2),
+	('Hunting Log - Special Investigation Completed - Apex Rathalos', guild_card, [0x70, 0x110, 0x40], 'binary', 3),
+	('Hunting Log - Special Investigation Completed - Khezu', guild_card, [0x70, 0x110, 0x40], 'binary', 4),
+	('Hunting Log - Special Investigation Completed - Basarios', guild_card, [0x70, 0x110, 0x40], 'binary', 5),
+	('Hunting Log - Special Investigation Completed - Diablos', guild_card, [0x70, 0x110, 0x40], 'binary', 6),
+	('Hunting Log - Special Investigation Completed - Apex Diablos', guild_card, [0x70, 0x110, 0x40], 'binary', 7),
+	('Hunting Log - Special Investigation Completed - Rajang', guild_card, [0x70, 0x110, 0x41], 'binary', 0),
+	('Hunting Log - Special Investigation Completed - Kushala Daora', guild_card, [0x70, 0x110, 0x41], 'binary', 1),
+	('Hunting Log - Special Investigation Completed - Chameleos', guild_card, [0x70, 0x110, 0x41], 'binary', 2),
+	('Hunting Log - Special Investigation Completed - Teostra', guild_card, [0x70, 0x110, 0x41], 'binary', 3),
+	('Hunting Log - Special Investigation Completed - Tigrex', guild_card, [0x70, 0x110, 0x41], 'binary', 4),
+	('Hunting Log - Special Investigation Completed - Nargacuga', guild_card, [0x70, 0x110, 0x41], 'binary', 5),
+	('Hunting Log - Special Investigation Completed - Barioth', guild_card, [0x70, 0x110, 0x41], 'binary', 6),
+	('Hunting Log - Special Investigation Completed - Barroth', guild_card, [0x70, 0x110, 0x41], 'binary', 7),
+	('Hunting Log - Special Investigation Completed - Royal Ludroth', guild_card, [0x70, 0x110, 0x42], 'binary', 0),
+	('Hunting Log - Special Investigation Completed - Great Baggi', guild_card, [0x70, 0x110, 0x42], 'binary', 1),
+	('Hunting Log - Special Investigation Completed - Zinogre', guild_card, [0x70, 0x110, 0x42], 'binary', 2),
+	('Hunting Log - Special Investigation Completed - Apex Zinogre', guild_card, [0x70, 0x110, 0x42], 'binary', 3),
+	('Hunting Log - Special Investigation Completed - Great Wroggi', guild_card, [0x70, 0x110, 0x42], 'binary', 4),
+	('Hunting Log - Special Investigation Completed - Arzuros', guild_card, [0x70, 0x110, 0x42], 'binary', 5),
+	('Hunting Log - Special Investigation Completed - Apex Arzuros', guild_card, [0x70, 0x110, 0x42], 'binary', 6),
+	('Hunting Log - Special Investigation Completed - Lagombi', guild_card, [0x70, 0x110, 0x42], 'binary', 7),
+	('Hunting Log - Special Investigation Completed - Volvidon', guild_card, [0x70, 0x110, 0x43], 'binary', 0),
+	('Hunting Log - Special Investigation Completed - Mizutsune', guild_card, [0x70, 0x110, 0x43], 'binary', 1),
+	('Hunting Log - Special Investigation Completed - Apex Mizutsune', guild_card, [0x70, 0x110, 0x43], 'binary', 2),
+	('Hunting Log - Special Investigation Completed - Crimson Glow Valstrax', guild_card, [0x70, 0x110, 0x43], 'binary', 3),
+	('Hunting Log - Special Investigation Completed - Magnamalo', guild_card, [0x70, 0x110, 0x43], 'binary', 4),
+	('Hunting Log - Special Investigation Completed - Bishaten', guild_card, [0x70, 0x110, 0x43], 'binary', 5),
+	('Hunting Log - Special Investigation Completed - Aknosom', guild_card, [0x70, 0x110, 0x43], 'binary', 6),
+	('Hunting Log - Special Investigation Completed - Tetranadon', guild_card, [0x70, 0x110, 0x43], 'binary', 7),
+	('Hunting Log - Special Investigation Completed - Somnacanth', guild_card, [0x70, 0x110, 0x44], 'binary', 0),
+	('Hunting Log - Special Investigation Completed - Rakna-Kadaki', guild_card, [0x70, 0x110, 0x44], 'binary', 1),
+	('Hunting Log - Special Investigation Completed - Almudron', guild_card, [0x70, 0x110, 0x44], 'binary', 2),
+	('Hunting Log - Special Investigation Completed - Wind Serpent Ibushi', guild_card, [0x70, 0x110, 0x44], 'binary', 3),
+	('Hunting Log - Special Investigation Completed - Goss Harag', guild_card, [0x70, 0x110, 0x44], 'binary', 4),
+	('Hunting Log - Special Investigation Completed - Great Izuchi', guild_card, [0x70, 0x110, 0x44], 'binary', 5),
+	('Hunting Log - Special Investigation Completed - Thunder Serpent Narwa', guild_card, [0x70, 0x110, 0x44], 'binary', 6),
+	('Hunting Log - Special Investigation Completed - Narwa the Allmother', guild_card, [0x70, 0x110, 0x44], 'binary', 7),
+	('Hunting Log - Special Investigation Completed - Anjanath', guild_card, [0x70, 0x110, 0x45], 'binary', 0),
+	('Hunting Log - Special Investigation Completed - Pukei-Pukei', guild_card, [0x70, 0x110, 0x45], 'binary', 1),
+	('Hunting Log - Special Investigation Completed - Kulu-Ya-Ku', guild_card, [0x70, 0x110, 0x45], 'binary', 2),
+	('Hunting Log - Special Investigation Completed - Jyuratodus', guild_card, [0x70, 0x110, 0x45], 'binary', 3),
+	('Hunting Log - Special Investigation Completed - Tobi-Kadachi', guild_card, [0x70, 0x110, 0x45], 'binary', 4),
+	('Hunting Log - Special Investigation Completed - Bazelgeuse', guild_card, [0x70, 0x110, 0x45], 'binary', 5),
+	# Small Monsters Special Investigation Completed (always 0) from [0x70, 0x110, 0x45] 6 to [0x70, 0x110, 0x49] 3
+	('Hunting Log - Special Investigation Completed - Gold Rathian', guild_card, [0x70, 0x110, 0x49], 'binary', 4),
+	('Hunting Log - Special Investigation Completed - Silver Rathalos', guild_card, [0x70, 0x110, 0x49], 'binary', 5),
+	('Hunting Log - Special Investigation Completed - Daimyo Hermitaur', guild_card, [0x70, 0x110, 0x49], 'binary', 6),
+	('Hunting Log - Special Investigation Completed - Shogun Ceanataur', guild_card, [0x70, 0x110, 0x49], 'binary', 7),
+	('Hunting Log - Special Investigation Completed - Furious Rajang', guild_card, [0x70, 0x110, 0x4A], 'binary', 0),
+	('Hunting Log - Special Investigation Completed - Lucent Nargacuga', guild_card, [0x70, 0x110, 0x4A], 'binary', 1),
+	('Hunting Log - Special Investigation Completed - Gore Magala', guild_card, [0x70, 0x110, 0x4A], 'binary', 2),
+	('Hunting Log - Special Investigation Completed - Shagaru Magala', guild_card, [0x70, 0x110, 0x4A], 'binary', 3),
+	('Hunting Log - Special Investigation Completed - Seregios', guild_card, [0x70, 0x110, 0x4A], 'binary', 4),
+	('Hunting Log - Special Investigation Completed - Astalos', guild_card, [0x70, 0x110, 0x4A], 'binary', 5),
+	('Hunting Log - Special Investigation Completed - Violet Mizutsune', guild_card, [0x70, 0x110, 0x4A], 'binary', 6),
+	('Hunting Log - Special Investigation Completed - Scorned Magnamalo', guild_card, [0x70, 0x110, 0x4A], 'binary', 7),
+	('Hunting Log - Special Investigation Completed - Blood Orange Bishaten', guild_card, [0x70, 0x110, 0x4B], 'binary', 0),
+	('Hunting Log - Special Investigation Completed - Aurora Somnacanth', guild_card, [0x70, 0x110, 0x4B], 'binary', 1),
+	('Hunting Log - Special Investigation Completed - Pyre Rakna-Kadaki', guild_card, [0x70, 0x110, 0x4B], 'binary', 2),
+	('Hunting Log - Special Investigation Completed - Magma Almudron', guild_card, [0x70, 0x110, 0x4B], 'binary', 3),
+	('Hunting Log - Special Investigation Completed - Seething Bazelgeuse', guild_card, [0x70, 0x110, 0x4B], 'binary', 4),
+	('Hunting Log - Special Investigation Completed - Malzeno', guild_card, [0x70, 0x110, 0x4B], 'binary', 5),
+	('Hunting Log - Special Investigation Completed - Lunagaron', guild_card, [0x70, 0x110, 0x4B], 'binary', 6),
+	('Hunting Log - Special Investigation Completed - Garangolm', guild_card, [0x70, 0x110, 0x4B], 'binary', 7),
+	('Hunting Log - Special Investigation Completed - Gaismagorm', guild_card, [0x70, 0x110, 0x4C], 'binary', 0),
+	('Hunting Log - Special Investigation Completed - Espinas', guild_card, [0x70, 0x110, 0x4C], 'binary', 1),
+	('Hunting Log - Special Investigation Completed - Flaming Espinas', guild_card, [0x70, 0x110, 0x4C], 'binary', 2),
+	# Small Monsters Special Investigation Completed (always 0) from [0x70, 0x110, 0x4C] 3 to [0x70, 0x110, 0x4D] 2
+	('Hunting Log - Special Investigation Completed - Risen Kushala Daora', guild_card, [0x70, 0x110, 0x4D], 'binary', 3),
+	('Hunting Log - Special Investigation Completed - Risen Chameleos', guild_card, [0x70, 0x110, 0x4D], 'binary', 4),
+	('Hunting Log - Special Investigation Completed - Risen Teostra', guild_card, [0x70, 0x110, 0x4D], 'binary', 5),
+	('Hunting Log - Special Investigation Completed - Risen Shagaru Magala', guild_card, [0x70, 0x110, 0x4D], 'binary', 6),
+	('Hunting Log - Special Investigation Completed - Risen Crimson Glow Valstrax', guild_card, [0x70, 0x110, 0x4D], 'binary', 7),
+	('Hunting Log - Special Investigation Completed - Primordial Malzeno', guild_card, [0x70, 0x110, 0x4E], 'binary', 0),
+	('Hunting Log - Special Investigation Completed - Chaotic Gore Magala', guild_card, [0x70, 0x110, 0x4E], 'binary', 1),
+	('Hunting Log - Special Investigation Completed - Velkhana', guild_card, [0x70, 0x110, 0x4E], 'binary', 2),
+	('Hunting Log - Special Investigation Completed - Amatsu', guild_card, [0x70, 0x110, 0x4E], 'binary', 3),
 	('Hunting Log - Hunted - Rathian', guild_card, [0x70, 0x138, 0x20], 'int'),
 	('Hunting Log - Hunted - Apex Rathian', guild_card, [0x70, 0x138, 0x24], 'int'),
 	('Hunting Log - Hunted - Rathalos', guild_card, [0x70, 0x138, 0x28], 'int'),
