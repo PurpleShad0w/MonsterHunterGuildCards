@@ -30,7 +30,7 @@ svData = rcx + endemic_life_offset
 data = {}
 
 
-def read_pointer_var(var: str, base_address: int, offsets: list[int], var_type: str, string_length: int = 100):
+def read_pointer_var(var: str, base_address: int, offsets: list[int], var_type: str, length: int = 100):
 	address = base_address
 
 	for offset in offsets[:-1]:
@@ -58,7 +58,12 @@ def read_pointer_var(var: str, base_address: int, offsets: list[int], var_type: 
 		case 'ulonglong':
 			value = pm.read_ulonglong(final_address)
 		case 'string':
-			value = pm.read_string(final_address, string_length)
+			value = pm.read_string(final_address, length)
+		case 'binary':
+			if not 0 <= length <= 7:
+				raise ValueError("Bit index for 'binary' must be between 0 and 7.")
+			byte_value = pm.read_bytes(final_address, 1)
+			value = byte_value[0] >> length & 1
 		case _:
 			raise ValueError(f"Unsupported variable type: {var_type}")
 
@@ -66,9 +71,9 @@ def read_pointer_var(var: str, base_address: int, offsets: list[int], var_type: 
 
 
 pointers = [
-	('Name', gSave, [0x50], 'string', 16),
+	('Hunter Name', gSave, [0x50], 'string', 16),
 	('Hunter Rank', gSave, [0x90], 'int'),
-	('Zenni', gSave, [0x94], 'int'),
+	('Zenny', gSave, [0x94], 'int'),
 	('Research Points', gSave, [0x98], 'int'),
 	('Hunter Rank Experience', gSave, [0x9C], 'int'),
 	('Play Time (s)', gSave, [0xA0], 'int'),
