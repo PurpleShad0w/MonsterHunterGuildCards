@@ -98,7 +98,7 @@ pointers = [
 	('Quests Completed - Type - Follower Quests', guild_card, [0x70, 0xBC], 'int'),
 	('Quests Completed - Type - Anomaly Quests', guild_card, [0x70, 0xC0], 'int'),
 	('Quests Completed - Type - Anomaly Investigations', guild_card, [0x70, 0xC4], 'int'),
-	('Quests Completed - Type - Event Quests', guild_card, [0x70, 0xC8], 'int'),
+	#('Quests Completed - Type - Anomaly Investigations ?', guild_card, [0x70, 0xC8], 'int'),
 	('Quests Completed - Location - Shrine Ruins', guild_card, [0x70, 0xD0, 0x24], 'int'),
 	('Quests Completed - Location - Sandy Plains', guild_card, [0x70, 0xD0, 0x28], 'int'),
 	('Quests Completed - Location - Flooded Forest', guild_card, [0x70, 0xD0, 0x2C], 'int'),
@@ -804,6 +804,7 @@ pointers = [
 	('Achievements - Surmounter\'s Slaying Shield', guild_card, [0x70, 0x1F8, 0x10, 0x2C], 'binary', 1),
 	('Achievements - Shining Surmounter\'s Shield', guild_card, [0x70, 0x1F8, 0x10, 0x2C], 'binary', 2),
 	('Achievements - Hero\'s Accolade', guild_card, [0x70, 0x1F8, 0x10, 0x2C], 'binary', 3),
+	('Quests Completed - Type - Special Investigations', guild_card, [0x70, 0x23C], 'int'),
 ]
 
 
