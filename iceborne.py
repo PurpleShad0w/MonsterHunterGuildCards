@@ -41,8 +41,6 @@ def read_pointer_var(var: str, base_address: int, offsets: list[int], var_type: 
 	match var_type:
 		case 'int':
 			value = pm.read_int(final_address)
-		case 'uint':
-			value = pm.read_uint(final_address)
 		case 'float':
 			value = pm.read_float(final_address)
 		case 'double':
@@ -51,12 +49,8 @@ def read_pointer_var(var: str, base_address: int, offsets: list[int], var_type: 
 			value = pm.read_bool(final_address)
 		case 'long':
 			value = pm.read_long(final_address)
-		case 'ulong':
-			value = pm.read_ulong(final_address)
 		case 'longlong':
 			value = pm.read_longlong(final_address)
-		case 'ulonglong':
-			value = pm.read_ulonglong(final_address)
 		case 'string':
 			value = pm.read_string(final_address, length)
 		case 'binary':
