@@ -29,6 +29,9 @@ df.to_csv(r'processing/processed_sunbreak.tsv', sep='\t', index=False)
 df = pd.read_csv(r'processing/raw_iceborne.tsv', sep='\t')
 
 
+df.loc[len(df)] = ['Play Time (hrs)', float(df.loc[df['Variable'] == 'Play Time (s)', 'Value'].values[0]) / 3600]
+df.loc[len(df)] = ['Time Spent in the Guiding Lands (hrs)', float(df.loc[df['Variable'] == 'Time Spent in the Guiding Lands (s)', 'Value'].values[0]) / 3600]
+
 slain = df[df['Variable'].str.startswith('Hunting Log - Slain -')]
 captured = df[df['Variable'].str.startswith('Hunting Log - Captured -')]
 slain = slain.copy()

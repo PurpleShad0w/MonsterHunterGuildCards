@@ -1,3 +1,4 @@
+from datetime import datetime
 import pandas as pd
 import pymem
 import pymem.process
@@ -29,14 +30,6 @@ def read_pointer_var(var : str, base_address: int, offsets: list[int], var_type:
 			value = pm.read_float(final_address)
 		case 'double':
 			value = pm.read_double(final_address)
-		case 'bool':
-			value = pm.read_bool(final_address)
-		case 'long':
-			value = pm.read_long(final_address)
-		case 'longlong':
-			value = pm.read_longlong(final_address)
-		case 'string':
-			value = pm.read_string(final_address, length)
 		case 'utf16':
 			raw_bytes = pm.read_bytes(final_address, length)
 			value = raw_bytes.decode('utf-16le').rstrip('\x00')
@@ -51,7 +44,9 @@ def read_pointer_var(var : str, base_address: int, offsets: list[int], var_type:
 	data.update({var : value})
 
 
-unused_pointers = [
+temporary_pointers = [
+	# static pointers not yet found for some of this data, however these are somewhat not as relevant as the rest anyway
+
 	('Play Time (s)', activity_log, [0x68, 0x128], 'double'),
 	('Times Liked', activity_log, [0x68, 0x130], 'int'),
 	('Total Monsters Hunted', activity_log, [0x68, 0x134], 'int'),
@@ -60,7 +55,7 @@ unused_pointers = [
 	('Canyne Count', activity_log, [0x68, 0x140], 'int'),
 	('Total Zenny Obtained', activity_log, [0x68, 0x144], 'int'),
 	('Monster Most Hunted ID', activity_log, [0x68, 0x148], 'int'),
-	('Endemic Lifes Encountered', activity_log, [0x68, 0x14C], 'int'),
+	('Endemic Lives Encountered', activity_log, [0x68, 0x14C], 'int'),
 	('Hunted Monster Types', activity_log, [0x68, 0x150], 'int'),
 	('Usable Titles', activity_log, [0x68, 0x154], 'int'),
 	('Awards Owned', activity_log, [0x68, 0x158], 'int'),
@@ -114,6 +109,7 @@ pointers = [
 	('Quests Completed - Location - Yawning Abyss', guild_card, [0x70, 0xD0, 0x5C], 'int'),
 	('Total Monsters Hunted', guild_card, [0x70, 0xDC], 'int'),
 	('Total Monsters Captured', guild_card, [0x70, 0xE0], 'int'),
+	('Quests Completed - Type - Special Investigations', guild_card, [0x70, 0x23C], 'int'),
 	('Hunting Log - Special Investigation Completed - Rathian', guild_card, [0x70, 0x110, 0x40], 'binary', 0),
 	('Hunting Log - Special Investigation Completed - Apex Rathian', guild_card, [0x70, 0x110, 0x40], 'binary', 1),
 	('Hunting Log - Special Investigation Completed - Rathalos', guild_card, [0x70, 0x110, 0x40], 'binary', 2),
@@ -912,7 +908,6 @@ pointers = [
 	('Achievements - Surmounter\'s Slaying Shield', guild_card, [0x70, 0x1F8, 0x10, 0x2C], 'binary', 1),
 	('Achievements - Shining Surmounter\'s Shield', guild_card, [0x70, 0x1F8, 0x10, 0x2C], 'binary', 2),
 	('Achievements - Hero\'s Accolade', guild_card, [0x70, 0x1F8, 0x10, 0x2C], 'binary', 3),
-	('Quests Completed - Type - Special Investigations', guild_card, [0x70, 0x23C], 'int'),
 ]
 
 
@@ -921,4 +916,5 @@ for pointer in pointers:
 
 df = pd.DataFrame.from_records(data, index=['Value']).T
 df.reset_index(inplace=True, names='Variable')
+df.loc[len(df)] = ['_Last Updated', datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
 df.to_csv(r'processing/raw_sunbreak.tsv', sep='\t', index=False)
