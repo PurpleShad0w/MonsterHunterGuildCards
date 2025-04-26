@@ -914,7 +914,30 @@ pointers = [
 for pointer in pointers:
 	read_pointer_var(*pointer)
 
+
 df = pd.DataFrame.from_records(data, index=['Value']).T
 df.reset_index(inplace=True, names='Variable')
+
 df.loc[len(df)] = ['_Last Updated', datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
-df.to_csv(r'processing/raw_sunbreak.tsv', sep='\t', index=False)
+
+df.loc[len(df)] = ['Total Monsters Slain', int(df.loc[df['Variable'] == 'Total Monsters Hunted', 'Value'].values[0]) - int(df.loc[df['Variable'] == 'Total Monsters Captured', 'Value'].values[0])]
+
+df.loc[len(df)] = ['Play Time (hrs)', float(df.loc[df['Variable'] == 'Play Time (s)', 'Value'].values[0]) / 3600]
+df.loc[len(df)] = ['Time Spent on Canyne (hrs)', float(df.loc[df['Variable'] == 'Time Spent on Canyne (s)', 'Value'].values[0]) / 3600]
+
+hunted = df[df['Variable'].str.startswith('Hunting Log - Hunted -')]
+captured = df[df['Variable'].str.startswith('Hunting Log - Captured -')]
+hunted = hunted.copy()
+captured = captured.copy()
+hunted['Monster'] = hunted['Variable'].str.replace('Hunting Log - Hunted - ', '', regex=False)
+captured['Monster'] = captured['Variable'].str.replace('Hunting Log - Captured - ', '', regex=False)
+merged = pd.merge(hunted[['Monster', 'Value']], captured[['Monster', 'Value']], on='Monster', suffixes=('_Hunted', '_Captured'))
+merged['Slain'] = merged['Value_Hunted'].astype(int) - merged['Value_Captured'].astype(int)
+
+for _, row in merged.iterrows():
+	new_variable = f'Hunting Log - Slain - {row["Monster"]}'
+	df.loc[len(df)] = [new_variable, row['Slain']]
+
+
+df = df.sort_values(by=['Variable'])
+df.to_csv(r'data/MHRS.tsv', sep='\t', index=False)

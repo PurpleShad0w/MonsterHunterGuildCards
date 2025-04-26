@@ -5,7 +5,7 @@ from dash import html
 app = dash.Dash(__name__, assets_folder='assets')
 get_asset_url = app.get_asset_url
 
-df_raw = pd.read_csv('processing/processed_iceborne.tsv', sep='\t', names=['Variable', 'Value'])
+df_raw = pd.read_csv(r'data/MHWI.tsv', sep='\t', names=['Variable', 'Value'])
 df_raw['Value'] = pd.to_numeric(df_raw['Value'], errors='coerce').fillna(0)
 
 def parse_row(var):

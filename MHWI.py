@@ -1167,5 +1167,25 @@ for pointer in pointers:
 
 df = pd.DataFrame.from_records(data, index=['Value']).T
 df.reset_index(inplace=True, names='Variable')
+
 df.loc[len(df)] = ['_Last Updated', datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
-df.to_csv(r'processing/raw_iceborne.tsv', sep='\t', index=False)
+
+df.loc[len(df)] = ['Play Time (hrs)', float(df.loc[df['Variable'] == 'Play Time (s)', 'Value'].values[0]) / 3600]
+df.loc[len(df)] = ['Time Spent in the Guiding Lands (hrs)', float(df.loc[df['Variable'] == 'Time Spent in the Guiding Lands (s)', 'Value'].values[0]) / 3600]
+
+slain = df[df['Variable'].str.startswith('Hunting Log - Slain -')]
+captured = df[df['Variable'].str.startswith('Hunting Log - Captured -')]
+slain = slain.copy()
+captured = captured.copy()
+slain['Monster'] = slain['Variable'].str.replace('Hunting Log - Slain - ', '', regex=False)
+captured['Monster'] = captured['Variable'].str.replace('Hunting Log - Captured - ', '', regex=False)
+merged = pd.merge(slain[['Monster', 'Value']], captured[['Monster', 'Value']], on='Monster', suffixes=('_Slain', '_Captured'))
+merged['Hunted'] = merged['Value_Slain'].astype(int) + merged['Value_Captured'].astype(int)
+
+for _, row in merged.iterrows():
+	new_variable = f'Hunting Log - Hunted - {row["Monster"]}'
+	df.loc[len(df)] = [new_variable, row['Hunted']]
+
+
+df = df.sort_values(by=['Variable'])
+df.to_csv(r'data/MHWI.tsv', sep='\t', index=False)
