@@ -39,7 +39,12 @@ DATASETS = {
 			'Hunted': 'sum',
 			'Slain': 'sum',
 			'Captured': 'sum',
-		}
+		},
+		'display_names': {
+			'Hunted': 'Hunted',
+			'Slain': 'Slain',
+			'Captured': 'Captured',
+		},
 	},
 
 	'MHWI': {
@@ -53,7 +58,16 @@ DATASETS = {
 			'Large Crown Size': 'max',
 			'Research Experience': 'sum',
 			'Research Level': 'sum',
-		}
+		},
+		'display_names': {
+			'Hunted': 'Hunted',
+			'Slain': 'Slain',
+			'Captured': 'Captured',
+			'Small Crown Size': 'Smallest Size',
+			'Large Crown Size': 'Largest Size',
+			'Research Experience': 'Research XP',
+			'Research Level': 'Research Level',
+		},
 	},
 
 	'MHRS': {
@@ -65,7 +79,14 @@ DATASETS = {
 			'Captured': 'sum',
 			'Anomaly Hunts': 'sum',
 			'Special Investigation Completed': 'all',
-		}
+		},
+		'display_names': {
+			'Hunted': 'Hunted',
+			'Slain': 'Slain',
+			'Captured': 'Captured',
+			'Anomaly Hunts': 'Anomaly Hunts',
+			'Special Investigation Completed': 'Spec. Invest. Completed',
+		},
 	},
 }
 
@@ -82,6 +103,7 @@ for cfg in DATASETS.values():
 def generate_table(dataset_key):
 	cfg = DATASETS[dataset_key]
 	agg_map = cfg['agg']
+	display_names = cfg.get('display_names', {})
 
 	frames = []
 	for f in cfg['files']:
@@ -142,7 +164,7 @@ def generate_table(dataset_key):
 		return html.Tr(cells, style={'backgroundColor': level_bg[row['level']]})
 
 	header_cells = [html.Th('', style=base_cell), html.Th('Name', style=base_cell)] + [
-		html.Th(col, style={**base_cell, 'textAlign': 'right'}) for col in agg_map
+		html.Th(display_names.get(col, col), style={**base_cell, 'textAlign': 'right'}) for col in agg_map
 	]
 
 	return html.Table([
