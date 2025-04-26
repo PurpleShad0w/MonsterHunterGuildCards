@@ -1186,6 +1186,13 @@ for _, row in merged.iterrows():
 	new_variable = f'Hunting Log - Hunted - {row["Monster"]}'
 	df.loc[len(df)] = [new_variable, row['Hunted']]
 
+for _, row in df.iterrows():
+	if row['Variable'].startswith('Hunting Log - Small Crown Size - ') and row['Value'] == 0:
+		df.loc[df['Variable'] == row['Variable'], 'Value'] = 100
+
+	if row['Variable'].startswith('Hunting Log - Large Crown Size - ') and row['Value'] == 0:
+		df.loc[df['Variable'] == row['Variable'], 'Value'] = 100
+
 
 df = df.sort_values(by=['Variable'])
 df.to_csv(r'data/MHWI.tsv', sep='\t', index=False)
