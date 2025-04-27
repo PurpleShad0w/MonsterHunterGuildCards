@@ -136,24 +136,34 @@ def generate_table(dataset_key):
 	df_subsubcat = df_summary.groupby(['Cat', 'SubCat', 'SubSubCat']).agg(agg_map).reset_index()
 
 	rows = []
-	for _, cat in df_cat.iterrows():
-		rows.append({'level': 0, 'Name': cat['Cat'], **{c: int(cat[c]) for c in agg_map}})
-		subs = df_subcat[df_subcat['Cat'] == cat['Cat']]
+	for cat in category_map:
+		c = df_cat.loc[df_cat['Cat']==cat].iloc[0]
+		rows.append({'level':0, 'Name':cat, **{m:int(c[m]) for m in agg_map}})
 
-		for _, sub in subs.iterrows():
-			rows.append({'level': 1, 'Name': sub['SubCat'], **{c: int(sub[c]) for c in agg_map}})
-			subsubs = df_subsubcat[(df_subsubcat['Cat'] == sub['Cat']) & (df_subsubcat['SubCat'] == sub['SubCat'])]
+		for subcat in category_map[cat]:
+			s = df_subcat.loc[
+				(df_subcat['Cat']==cat)&(df_subcat['SubCat']==subcat)
+			].iloc[0]
+			rows.append({'level':1, 'Name':subcat, **{m:int(s[m]) for m in agg_map}})
+			submap = category_map[cat][subcat]
 
-			for _, subsub in subsubs.iterrows():
-				rows.append({'level': 2, 'Name': subsub['SubSubCat'], **{c: int(subsub[c]) for c in agg_map}})
-				monsters = df_summary[
-					(df_summary['Cat'] == sub['Cat']) &
-					(df_summary['SubCat'] == sub['SubCat']) &
-					(df_summary['SubSubCat'] == subsub['SubSubCat'])
-				]
+			if isinstance(submap, dict):
+				for subsub in submap:
+					ss = df_subsubcat.loc[
+						(df_subsubcat['Cat']==cat)&
+						(df_subsubcat['SubCat']==subcat)&
+						(df_subsubcat['SubSubCat']==subsub)
+					].iloc[0]
+					rows.append({'level':2, 'Name':subsub, **{m:int(ss[m]) for m in agg_map}})
 
-				for _, m in monsters.iterrows():
-					rows.append({'level': 3, 'Name': m['Monster'], **{c: int(m[c]) for c in agg_map}})
+					for mon in submap[subsub]:
+						mm = df_summary.loc[df_summary['Monster']==mon].iloc[0]
+						rows.append({'level':3, 'Name':mon, **{m:int(mm[m]) for m in agg_map}})
+
+			else:
+				for mon in submap:
+					mm = df_summary.loc[df_summary['Monster']==mon].iloc[0]
+					rows.append({'level':3, 'Name':mon, **{m:int(mm[m]) for m in agg_map}})
 
 	df_display = pd.DataFrame(rows)
 
