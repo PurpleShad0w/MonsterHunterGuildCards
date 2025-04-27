@@ -1,187 +1,216 @@
 monsters = {
-	'Amphibians': {
-		'Tetranadon Variations': ['Tetranadon'],
-		'Zamite Variations': ['Zamite'],
+	'Large Monsters': {
+		'Amphibians': {
+			'Tetranadon Family': ['Tetranadon'],
+		},
+
+		'Bird Wyverns': {
+			'Aknosom Family': ['Aknosom'],
+			'Great Baggi Family': ['Great Baggi'],
+			'Great Izuchi Family': ['Great Izuchi'],
+			'Great Wroggi Family': ['Great Wroggi'],
+			'Kulu-Ya-Ku Family': ['Kulu-Ya-Ku'],
+			'Pukei-Pukei Family': ['Pukei-Pukei', 'Coral Pukei-Pukei'],
+			'Tzitzi-Ya-Ku Family': ['Tzitzi-Ya-Ku'],
+			'Yian Garuga Family': ['Yian Garuga', 'Scarred Yian Garuga'],
+		},
+
+		'Brute Wyverns': {
+			'Anjanath Family': ['Anjanath', 'Fulgur Anjanath'],
+			'Banbaro Family': ['Banbaro'],
+			'Barroth Family': ['Barroth'],
+			'Brachydios Family': ['Brachydios', 'Raging Brachydios'],
+			'Deviljho Family': ['Deviljho', 'Savage Deviljho'],
+			'Diablos Family': ['Diablos', 'Black Diablos', 'Apex Diablos'],
+			'Glavenus Family': ['Glavenus', 'Acidic Glavenus'],
+			'Radobaan Family': ['Radobaan'],
+			'Uragaan Family': ['Uragaan'],
+		},
+
+		'Carapaceons': {
+			'Daimyo Hermitaur Family': ['Daimyo Hermitaur'],
+			'Shogun Ceanataur Family': ['Shogun Ceanataur'],
+		},
+
+		'Demi Elder Dragons': {
+			'Gore Magala Family': ['Gore Magala', 'Chaotic Gore Magala'],
+		},
+
+		'Elder Dragons': {
+			'Alatreon Family': ['Alatreon'],
+			'Amatsu Family': ['Amatsu'],
+			'Behemoth Family': ['Behemoth'],
+			'Chameleos Family': ['Chameleos', 'Risen Chameleos'],
+			'Fatalis Family': ['Fatalis'],
+			'Gaismagorm Family': ['Gaismagorm'],
+			'Ibushi Family': ['Wind Serpent Ibushi'],
+			'Kirin Family': ['Kirin'],
+			'Kulve Taroth Family': ['Kulve Taroth'],
+			'Kushala Daora Family': ['Kushala Daora', 'Risen Kushala Daora'],
+			'Lunastra Family': ['Lunastra'],
+			'Malzeno Family': ['Malzeno', 'Primordial Malzeno'],
+			'Namielle Family': ['Namielle'],
+			'Narwa Family': ['Thunder Serpent Narwa', 'Narwa the Allmother'],
+			'Nergigante Family': ['Nergigante', 'Ruiner Nergigante'],
+			'Safi\'jiiva Family': ['Safi\'jiiva'],
+			'Shagaru Magala Family': ['Shagaru Magala', 'Risen Shagaru Magala'],
+			'Shara Ishvalda Family': ['Shara Ishvalda'],
+			'Teostra Family': ['Teostra', 'Risen Teostra'],
+			'Vaal Hazak Family': ['Vaal Hazak', 'Blackveil Vaal Hazak'],
+			'Valstrax Family': ['Crimson Glow Valstrax', 'Risen Crimson Glow Valstrax'],
+			'Velkhana Family': ['Velkhana'],
+			'Xeno\'jiiva Family': ['Xeno\'jiiva'],
+			'Zorah Magdaros Family': ['Zorah Magdaros'],
+		},
+
+		'Fanged Beasts': {
+			'Arzuros Family': ['Arzuros', 'Apex Arzuros'],
+			'Bishaten Family': ['Bishaten', 'Blood Orange Bishaten'],
+			'Garangolm Family': ['Garangolm'],
+			'Goss Harag Family': ['Goss Harag'],
+			'Lagombi Family': ['Lagombi'],
+			'Rajang Family': ['Rajang', 'Furious Rajang'],
+			'Volvidon Family': ['Volvidon'],
+		},
+
+		'Fanged Wyverns': {
+			'Dodogama Family': ['Dodogama'],
+			'Great Girros Family': ['Great Girros'],
+			'Great Jagras Family': ['Great Jagras'],
+			'Lunagaron Family': ['Lunagaron'],
+			'Magnamalo Family': ['Magnamalo', 'Scorned Magnamalo'],
+			'Odogaron Family': ['Odogaron', 'Ebony Odogaron'],
+			'Tobi-Kadachi Family': ['Tobi-Kadachi', 'Viper Tobi-Kadachi'],
+			'Zinogre Family': ['Zinogre', 'Stygian Zinogre', 'Apex Zinogre'],
+		},
+
+		'Flying Wyverns': {
+			'Astalos Family': ['Astalos'],
+			'Barioth Family': ['Barioth', 'Frostfang Barioth'],
+			'Basarios Family': ['Basarios'],
+			'Bazelgeuse Family': ['Bazelgeuse', 'Seething Bazelgeuse'],
+			'Espinas Family': ['Espinas', 'Flaming Espinas'],
+			'Khezu Family': ['Khezu'],
+			'Legiana Family': ['Legiana', 'Shrieking Legiana'],
+			'Nargacuga Family': ['Nargacuga', 'Lucent Nargacuga'],
+			'Paolumu Family': ['Paolumu', 'Nightshade Paolumu'],
+			'Rathalos Family': ['Rathalos', 'Azure Rathalos', 'Silver Rathalos', 'Apex Rathalos'],
+			'Rathian Family': ['Rathian', 'Pink Rathian', 'Gold Rathian', 'Apex Rathian'],
+			'Seregios Family': ['Seregios'],
+			'Tigrex Family': ['Tigrex', 'Brute Tigrex'],
+		},
+
+		'Leviathans': {
+			'Almudron Family': ['Almudron', 'Magma Almudron'],
+			'Mizutsune Family': ['Mizutsune', 'Violet Mizutsune', 'Apex Mizutsune'],
+			'Royal Ludroth Family': ['Royal Ludroth'],
+			'Somnacanth Family': ['Somnacanth', 'Aurora Somnacanth'],
+		},
+
+		'Piscine Wyverns': {
+			'Beotodus Family': ['Beotodus'],
+			'Jyuratodus Family': ['Jyuratodus'],
+			'Lavasioth Family': ['Lavasioth'],
+		},
+
+		'Relicts': {
+			'Leshen Family': ['Leshen', 'Ancient Leshen'],
+		},
+
+		'Temnocerans': {
+			'Rakna-Kadaki Family': ['Rakna-Kadaki', 'Pyre Rakna-Kadaki'],
+		},
 	},
 
-	'Bird Wyverns': {
-		'Aknosom Variations': ['Aknosom'],
-		'Baggi Variations': ['Baggi'],
-		'Boggi Variations': ['Boggi'],
-		'Gargwa Variations': ['Gargwa'],
-		'Great Baggi Variations': ['Great Baggi'],
-		'Great Izuchi Variations': ['Great Izuchi'],
-		'Great Wroggi Variations': ['Great Wroggi'],
-		'Izuchi Variations': ['Izuchi'],
-		'Jaggi Variations': ['Jaggi', 'Jaggia'],
-		'Kulu-Ya-Ku Variations': ['Kulu-Ya-Ku'],
-		'Pukei-Pukei Variations': ['Pukei-Pukei', 'Coral Pukei-Pukei'],
-		'Tzitzi-Ya-Ku Variations': ['Tzitzi-Ya-Ku'],
-		'Velociprey Variations': ['Velociprey'],
-		'Wroggi Variations': ['Wroggi'],
-		'Yian Garuga Variations': ['Yian Garuga', 'Scarred Yian Garuga'],
-	},
 
-	'Brute Wyverns': {
-		'Anjanath Variations': ['Anjanath', 'Fulgur Anjanath'],
-		'Banbaro Variations': ['Banbaro'],
-		'Barroth Variations': ['Barroth'],
-		'Brachydios Variations': ['Brachydios', 'Raging Brachydios'],
-		'Deviljho Variations': ['Deviljho', 'Savage Deviljho'],
-		'Diablos Variations': ['Diablos', 'Black Diablos', 'Apex Diablos'],
-		'Glavenus Variations': ['Glavenus', 'Acidic Glavenus'],
-		'Radobaan Variations': ['Radobaan'],
-		'Uragaan Variations': ['Uragaan'],
-	},
+	'Small Monsters': {
+		'Amphibians': {
+			'Zamite Family': ['Zamite'],
+		},
 
-	'Carapaceons': {
-		'Ceanataur Variations': ['Ceanataur'],
-		'Daimyo Hermitaur Variations': ['Daimyo Hermitaur'],
-		'Shogun Ceanataur Variations': ['Shogun Ceanataur'],
-		'Hermitaur Variations': ['Hermitaur'],
-	},
+		'Bird Wyverns': {
+			'Baggi Family': ['Baggi'],
+			'Boggi Family': ['Boggi'],
+			'Gargwa Family': ['Gargwa'],
+			'Izuchi Family': ['Izuchi'],
+			'Jaggi Family': ['Jaggi', 'Jaggia'],
+			'Velociprey Family': ['Velociprey'],
+			'Wroggi Family': ['Wroggi'],
+		},
 
-	'Demi Elder Dragons': {
-		'Gore Magala Variations': ['Gore Magala', 'Chaotic Gore Magala'],
-	},
+		'Carapaceons': {
+			'Ceanataur Family': ['Ceanataur'],
+			'Hermitaur Family': ['Hermitaur'],
+		},
 
-	'Elder Dragons': {
-		'Alatreon Variations': ['Alatreon'],
-		'Amatsu Variations': ['Amatsu'],
-		'Behemoth Variations': ['Behemoth'],
-		'Chameleos Variations': ['Chameleos', 'Risen Chameleos'],
-		'Fatalis Variations': ['Fatalis'],
-		'Gaismagorm Variations': ['Gaismagorm'],
-		'Ibushi Variations': ['Wind Serpent Ibushi'],
-		'Kirin Variations': ['Kirin'],
-		'Kulve Taroth Variations': ['Kulve Taroth'],
-		'Kushala Daora Variations': ['Kushala Daora', 'Risen Kushala Daora'],
-		'Lunastra Variations': ['Lunastra'],
-		'Malzeno Variations': ['Malzeno', 'Primordial Malzeno'],
-		'Namielle Variations': ['Namielle'],
-		'Narwa Variations': ['Thunder Serpent Narwa', 'Narwa the Allmother'],
-		'Nergigante Variations': ['Nergigante', 'Ruiner Nergigante'],
-		'Safi\'jiiva Variations': ['Safi\'jiiva'],
-		'Shagaru Magala Variations': ['Shagaru Magala', 'Risen Shagaru Magala'],
-		'Shara Ishvalda Variations': ['Shara Ishvalda'],
-		'Teostra Variations': ['Teostra', 'Risen Teostra'],
-		'Vaal Hazak Variations': ['Vaal Hazak', 'Blackveil Vaal Hazak'],
-		'Valstrax Variations': ['Crimson Glow Valstrax', 'Risen Crimson Glow Valstrax'],
-		'Velkhana Variations': ['Velkhana'],
-		'Xeno\'jiiva Variations': ['Xeno\'jiiva'],
-		'Zorah Magdaros Variations': ['Zorah Magdaros'],
-	},
+		'Fanged Beasts': {
+			'Bombadgy Family': ['Bombadgy'],
+			'Bullfango Family': ['Bullfango'],
+		},
 
-	'Fanged Beasts': {
-		'Arzuros Variations': ['Arzuros', 'Apex Arzuros'],
-		'Bishaten Variations': ['Bishaten', 'Blood Orange Bishaten'],
-		'Bombadgy Variations': ['Bombadgy'],
-		'Bullfango Variations': ['Bullfango'],
-		'Garangolm Variations': ['Garangolm'],
-		'Goss Harag Variations': ['Goss Harag'],
-		'Lagombi Variations': ['Lagombi'],
-		'Rajang Variations': ['Rajang', 'Furious Rajang'],
-		'Volvidon Variations': ['Volvidon'],
-	},
+		'Fanged Wyverns': {
+			'Girros Family': ['Girros'],
+			'Jagras Family': ['Jagras'],
+			'Shamos Family': ['Shamos'],
+			'Wulg Family': ['Wulg'],
+		},
 
-	'Fanged Wyverns': {
-		'Dodogama Variations': ['Dodogama'],
-		'Girros Variations': ['Girros'],
-		'Great Girros Variations': ['Great Girros'],
-		'Great Jagras Variations': ['Great Jagras'],
-		'Jagras Variations': ['Jagras'],
-		'Lunagaron Variations': ['Lunagaron'],
-		'Magnamalo Variations': ['Magnamalo', 'Scorned Magnamalo'],
-		'Odogaron Variations': ['Odogaron', 'Ebony Odogaron'],
-		'Shamos Variations': ['Shamos'],
-		'Tobi-Kadachi Variations': ['Tobi-Kadachi', 'Viper Tobi-Kadachi'],
-		'Wulg Variations': ['Wulg'],
-		'Zinogre Variations': ['Zinogre', 'Stygian Zinogre', 'Apex Zinogre'],
-	},
+		'Fishes': {
+			'Gajau Family': ['Gajau'],
+		},
 
-	'Fishes': {
-		'Gajau Variations': ['Gajau'],
-	},
+		'Herbivores': {
+			'Anteka Family': ['Anteka'],
+			'Apceros Family': ['Apceros'],
+			'Aptonoth Family': ['Aptonoth'],
+			'Gastodon Family': ['Gastodon'],
+			'Gowngoat Family': ['Gowngoat'],
+			'Kelbi Family': ['Kelbi', 'Kelbi (male)', 'Kelbi (female)'],
+			'Kestodon Family': ['Kestodon', 'Kestodon (male)', 'Kestodon (female)'],
+			'Mosswine Family': ['Mosswine'],
+			'Popo Family': ['Popo'],
+			'Rhenoplos Family': ['Rhenoplos'],
+			'Slagtoth Family': ['Slagtoth'],
+		},
 
-	'Flying Wyverns': {
-		'Astalos Variations': ['Astalos'],
-		'Barioth Variations': ['Barioth', 'Frostfang Barioth'],
-		'Basarios Variations': ['Basarios'],
-		'Bazelgeuse Variations': ['Bazelgeuse', 'Seething Bazelgeuse'],
-		'Espinas Variations': ['Espinas', 'Flaming Espinas'],
-		'Khezu Variations': ['Khezu'],
-		'Legiana Variations': ['Legiana', 'Shrieking Legiana'],
-		'Nargacuga Variations': ['Nargacuga', 'Lucent Nargacuga'],
-		'Paolumu Variations': ['Paolumu', 'Nightshade Paolumu'],
-		'Rathalos Variations': ['Rathalos', 'Azure Rathalos', 'Silver Rathalos', 'Apex Rathalos'],
-		'Rathian Variations': ['Rathian', 'Pink Rathian', 'Gold Rathian', 'Apex Rathian'],
-		'Seregios Variations': ['Seregios'],
-		'Tigrex Variations': ['Tigrex', 'Brute Tigrex'],
-	},
+		'Leviathans': {
+			'Ludroth Family': ['Ludroth'],
+			'Uroktor Family': ['Uroktor'],
+		},
 
-	'Herbivores': {
-		'Anteka Variations': ['Anteka'],
-		'Apceros Variations': ['Apceros'],
-		'Aptonoth Variations': ['Aptonoth'],
-		'Gastodon Variations': ['Gastodon'],
-		'Gowngoat Variations': ['Gowngoat'],
-		'Kelbi Variations': ['Kelbi', 'Kelbi (male)', 'Kelbi (female)'],
-		'Kestodon Variations': ['Kestodon', 'Kestodon (male)', 'Kestodon (female)'],
-		'Mosswine Variations': ['Mosswine'],
-		'Popo Variations': ['Popo'],
-		'Rhenoplos Variations': ['Rhenoplos'],
-		'Slagtoth Variations': ['Slagtoth'],
-	},
+		'Lynians': {
+			'Boaboa Family': ['Boaboa'],
+			'Felyne Family': ['Felyne'],
+			'Gajalaka Family': ['Gajalaka'],
+			'Melynx Family': ['Melynx'],
+		},
 
-	'Leviathans': {
-		'Almudron Variations': ['Almudron', 'Magma Almudron'],
-		'Ludroth Variations': ['Ludroth'],
-		'Mizutsune Variations': ['Mizutsune', 'Violet Mizutsune', 'Apex Mizutsune'],
-		'Royal Ludroth Variations': ['Royal Ludroth'],
-		'Somnacanth Variations': ['Somnacanth', 'Aurora Somnacanth'],
-		'Uroktor Variations': ['Uroktor'],
-	},
+		'Neopterons': {
+			'Altaroth Family': ['Altaroth'],
+			'Bnahabra Family': ['Bnahabra'],
+			'Hornetaur Family': ['Hornetaur'],
+			'Vespoid Family': ['Vespoid'],
+		},
 
-	'Lynians': {
-		'Boaboa Variations': ['Boaboa'],
-		'Felyne Variations': ['Felyne'],
-		'Gajalaka Variations': ['Gajalaka'],
-		'Melynx Variations': ['Melynx'],
-	},
+		'Piscine Wyverns': {
+			'Delex Family': ['Delex'],
+		},
 
-	'Neopterons': {
-		'Altaroth Variations': ['Altaroth'],
-		'Bnahabra Variations': ['Bnahabra'],
-		'Hornetaur Variations': ['Hornetaur'],
-		'Vespoid Variations': ['Vespoid'],
-	},
+		'Snake Wyverns': {
+			'Remobra Family': ['Remobra'],
+		},
 
-	'Piscine Wyverns': {
-		'Beotodus Variations': ['Beotodus'],
-		'Delex Variations': ['Delex'],
-		'Jyuratodus Variations': ['Jyuratodus'],
-		'Lavasioth Variations': ['Lavasioth'],
-	},
+		'Temnocerans': {
+			'Rachnoid Family': ['Rachnoid'],
+			'Pyrantula Family': ['Pyrantula'],
+		},
 
-	'Relicts': {
-		'Leshen Variations': ['Leshen', 'Ancient Leshen'],
-	},
-
-	'Snake Wyverns': {
-		'Remobra Variations': ['Remobra'],
-	},
-
-	'Temnocerans': {
-		'Rakna-Kadaki Variations': ['Rakna-Kadaki', 'Pyre Rakna-Kadaki'],
-		'Rachnoid Variations': ['Rachnoid'],
-		'Pyrantula Variations': ['Pyrantula'],
-	},
-
-	'Wingdrakes': {
-		'Barnos Variations': ['Barnos'],
-		'Cortos Variations': ['Cortos'],
-		'Mernos Variations': ['Mernos'],
-		'Noios Variations': ['Noios'],
-		'Raphinos Variations': ['Raphinos'],
+		'Wingdrakes': {
+			'Barnos Family': ['Barnos'],
+			'Cortos Family': ['Cortos'],
+			'Mernos Family': ['Mernos'],
+			'Noios Family': ['Noios'],
+			'Raphinos Family': ['Raphinos'],
+		},
 	},
 }

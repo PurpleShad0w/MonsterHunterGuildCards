@@ -20,15 +20,19 @@ def parse_row(var):
 	return (parts[1], parts[2]) if len(parts) == 3 else (None, None)
 
 
-monster_to_cat = {
-	m: (cat, subcat)
-	for cat, subcats in category_map.items()
-	for subcat, monsters in subcats.items()
-	for m in monsters
-}
+monster_to_cat = {}
+for cat, subcats in category_map.items():
+	for subcat, monsters in subcats.items():
+		if isinstance(monsters, dict):
+			for subsubcat, mon_list in monsters.items():
+				for m in mon_list:
+					monster_to_cat[m] = (cat, subcat, subsubcat)
+		else:
+			for m in monsters:
+				monster_to_cat[m] = (cat, subcat, None)
 
 def safe_categories(monster):
-	return monster_to_cat.get(monster, ('Undefined', 'Undefined'))
+	return monster_to_cat.get(monster, ('Undefined', 'Undefined', 'Undefined'))
 
 
 DATASETS = {
@@ -123,29 +127,42 @@ def generate_table(dataset_key):
 	)
 
 	cat_expanded = df_summary['Monster'].apply(
-		lambda m: pd.Series(safe_categories(m), index=['Cat', 'SubCat'])
+		lambda m: pd.Series(safe_categories(m), index=['Cat', 'SubCat', 'SubSubCat'])
 	)
 	df_summary = pd.concat([df_summary, cat_expanded], axis=1)
 
 	df_cat = df_summary.groupby('Cat').agg(agg_map).reset_index()
 	df_subcat = df_summary.groupby(['Cat', 'SubCat']).agg(agg_map).reset_index()
+	df_subsubcat = df_summary.groupby(['Cat', 'SubCat', 'SubSubCat']).agg(agg_map).reset_index()
 
 	rows = []
 	for _, cat in df_cat.iterrows():
-		rows.append({ 'level': 0, 'Name': cat['Cat'], **{c: int(cat[c]) for c in agg_map} })
+		rows.append({'level': 0, 'Name': cat['Cat'], **{c: int(cat[c]) for c in agg_map}})
 		subs = df_subcat[df_subcat['Cat'] == cat['Cat']]
+
 		for _, sub in subs.iterrows():
-			rows.append({ 'level': 1, 'Name': sub['SubCat'], **{c: int(sub[c]) for c in agg_map} })
-			monsters = df_summary[(df_summary['Cat'] == sub['Cat']) & (df_summary['SubCat'] == sub['SubCat'])]
-			for _, m in monsters.iterrows():
-				rows.append({ 'level': 2, 'Name': m['Monster'], **{c: int(m[c]) for c in agg_map} })
+			rows.append({'level': 1, 'Name': sub['SubCat'], **{c: int(sub[c]) for c in agg_map}})
+			subsubs = df_subsubcat[(df_subsubcat['Cat'] == sub['Cat']) & (df_subsubcat['SubCat'] == sub['SubCat'])]
+
+			for _, subsub in subsubs.iterrows():
+				rows.append({'level': 2, 'Name': subsub['SubSubCat'], **{c: int(subsub[c]) for c in agg_map}})
+				monsters = df_summary[
+					(df_summary['Cat'] == sub['Cat']) &
+					(df_summary['SubCat'] == sub['SubCat']) &
+					(df_summary['SubSubCat'] == subsub['SubSubCat'])
+				]
+
+				for _, m in monsters.iterrows():
+					rows.append({'level': 3, 'Name': m['Monster'], **{c: int(m[c]) for c in agg_map}})
+
 	df_display = pd.DataFrame(rows)
 
 	base_cell = {'border': '1px solid #ccc', 'padding': '8px'}
 	icon_cell = {**base_cell, 'width': '10px'}
 	name_cell = {**base_cell, 'textAlign': 'left'}
 	number_cell = {**base_cell, 'textAlign': 'right'}
-	level_bg = {0: '#e0e0e0', 1: '#f0f0f0', 2: '#ffffff'}
+	# level_bg = {0: '#394867', 1: '#6c7b95', 2: '#aab6c9', 3: '#f0f4f8'} # Muted Indigo
+	level_bg = {0: '#4a6741', 1: '#7f9c6b', 2: '#b6c9a6', 3: '#e9f2e3'} # Forest Green
 
 	def render_row(row):
 		found_src = None
@@ -158,7 +175,9 @@ def generate_table(dataset_key):
 			found_src = get_asset_url('icons/Question Mark.png')
 		icon = html.Img(src=found_src, height='30px')
 
-		name_style = {**name_cell, 'paddingLeft': "10px", 'fontWeight': 'bold' if row['level'] < 2 else 'normal'}
+		font_weight = 'bold' if row['level'] == 0 or row['level'] == 2 else 'normal'
+		font_style = 'italic' if row['level'] == 1 else 'normal'
+		name_style = {**name_cell, 'paddingLeft': "10px", 'fontWeight': font_weight, 'fontStyle': font_style}
 		cells = [html.Td(icon, style=icon_cell), html.Td(row['Name'], style=name_style)]
 		cells += [html.Td(row[col], style=number_cell) for col in agg_map]
 		return html.Tr(cells, style={'backgroundColor': level_bg[row['level']]})
