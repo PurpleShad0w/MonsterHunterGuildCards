@@ -168,7 +168,7 @@ def generate_table(dataset_key):
 	df_display = pd.DataFrame(rows)
 
 	base_cell = {'border': '1px solid #ccc', 'padding': '8px'}
-	icon_cell = {**base_cell, 'width': '10px'}
+	icon_cell = {**base_cell, 'width': '10px', 'textAlign': 'center'}
 	name_cell = {**base_cell, 'textAlign': 'left'}
 	number_cell = {**base_cell, 'textAlign': 'right'}
 	# level_bg = {0: '#394867', 1: '#6c7b95', 2: '#aab6c9', 3: '#f0f4f8'} # Muted Indigo
