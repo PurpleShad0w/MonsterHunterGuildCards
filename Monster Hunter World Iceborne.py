@@ -1195,4 +1195,4 @@ for _, row in df.iterrows():
 
 
 df = df.sort_values(by=['Variable'])
-df.to_csv(r'data/MHWI.tsv', sep='\t', index=False)
+df.to_csv(r'data/Monster Hunter World Iceborne.tsv', sep='\t', index=False)

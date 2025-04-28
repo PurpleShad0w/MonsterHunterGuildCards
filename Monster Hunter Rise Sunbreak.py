@@ -940,4 +940,4 @@ for _, row in merged.iterrows():
 
 
 df = df.sort_values(by=['Variable'])
-df.to_csv(r'data/MHRS.tsv', sep='\t', index=False)
+df.to_csv(r'data/Monster Hunter Rise Sunbreak.tsv', sep='\t', index=False)

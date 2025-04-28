@@ -36,9 +36,12 @@ def safe_categories(monster):
 
 
 DATASETS = {
-	'all': {
-		'files': ['data/MHWI.tsv', 'data/MHRS.tsv'],
-		'icon_folders': ['icons/MHWI', 'icons/MHRS'],
+	'Monster Hunter Series': {
+		'files': ['data/Monster Hunter Rise Sunbreak.tsv',
+				'data/Monster Hunter World Iceborne.tsv'],
+		'icon_folders': ['icons/Monster Hunter Wilds',
+						'icons/Monster Hunter Rise Sunbreak',
+						'icons/Monster Hunter World Iceborne'],
 		'agg': {
 			'Hunted': 'sum',
 			'Slain': 'sum',
@@ -51,9 +54,28 @@ DATASETS = {
 		},
 	},
 
-	'MHWI': {
-		'files': ['data/MHWI.tsv'],
-		'icon_folders': ['icons/MHWI'],
+	'Monster Hunter Rise Sunbreak': {
+		'files': ['data/Monster Hunter Rise Sunbreak.tsv'],
+		'icon_folders': ['icons/Monster Hunter Rise Sunbreak'],
+		'agg': {
+			'Hunted': 'sum',
+			'Slain': 'sum',
+			'Captured': 'sum',
+			'Anomaly Hunts': 'sum',
+			'Special Investigation Completed': 'all',
+		},
+		'display_names': {
+			'Hunted': 'Hunted',
+			'Slain': 'Slain',
+			'Captured': 'Captured',
+			'Anomaly Hunts': 'Anomaly Hunts',
+			'Special Investigation Completed': 'Spec. Invest. Completed',
+		},
+	},
+
+	'Monster Hunter World Iceborne': {
+		'files': ['data/Monster Hunter World Iceborne.tsv'],
+		'icon_folders': ['icons/Monster Hunter World Iceborne'],
 		'agg': {
 			'Hunted': 'sum',
 			'Slain': 'sum',
@@ -71,25 +93,6 @@ DATASETS = {
 			'Large Crown Size': 'Largest Size',
 			'Research Experience': 'Research XP',
 			'Research Level': 'Research Level',
-		},
-	},
-
-	'MHRS': {
-		'files': ['data/MHRS.tsv'],
-		'icon_folders': ['icons/MHRS'],
-		'agg': {
-			'Hunted': 'sum',
-			'Slain': 'sum',
-			'Captured': 'sum',
-			'Anomaly Hunts': 'sum',
-			'Special Investigation Completed': 'all',
-		},
-		'display_names': {
-			'Hunted': 'Hunted',
-			'Slain': 'Slain',
-			'Captured': 'Captured',
-			'Anomaly Hunts': 'Anomaly Hunts',
-			'Special Investigation Completed': 'Spec. Invest. Completed',
 		},
 	},
 }
@@ -135,35 +138,39 @@ def generate_table(dataset_key):
 	df_subcat = df_summary.groupby(['Cat', 'SubCat']).agg(agg_map).reset_index()
 	df_subsubcat = df_summary.groupby(['Cat', 'SubCat', 'SubSubCat']).agg(agg_map).reset_index()
 
+	def build_row(level, name, df, match_filter, metrics):
+		filtered = df.loc[match_filter]
+		if not filtered.empty:
+			row_data = filtered.iloc[0]
+			return {'level': level, 'Name': name, **{m: int(row_data[m]) for m in metrics}}
+		else:
+			return {'level': level, 'Name': name, **{m: 0 for m in metrics}}
+
 	rows = []
 	for cat in category_map:
-		c = df_cat.loc[df_cat['Cat']==cat].iloc[0]
-		rows.append({'level':0, 'Name':cat, **{m:int(c[m]) for m in agg_map}})
+		rows.append(build_row(0, cat, df_cat, df_cat['Cat'] == cat, agg_map))
 
 		for subcat in category_map[cat]:
-			s = df_subcat.loc[
-				(df_subcat['Cat']==cat)&(df_subcat['SubCat']==subcat)
-			].iloc[0]
-			rows.append({'level':1, 'Name':subcat, **{m:int(s[m]) for m in agg_map}})
+			rows.append(build_row(1, subcat, df_subcat, 
+				(df_subcat['Cat'] == cat) & (df_subcat['SubCat'] == subcat), agg_map))
+			
 			submap = category_map[cat][subcat]
 
 			if isinstance(submap, dict):
 				for subsub in submap:
-					ss = df_subsubcat.loc[
-						(df_subsubcat['Cat']==cat)&
-						(df_subsubcat['SubCat']==subcat)&
-						(df_subsubcat['SubSubCat']==subsub)
-					].iloc[0]
-					rows.append({'level':2, 'Name':subsub, **{m:int(ss[m]) for m in agg_map}})
+					rows.append(build_row(2, subsub, df_subsubcat,
+						(df_subsubcat['Cat'] == cat) & (df_subsubcat['SubCat'] == subcat) & (df_subsubcat['SubSubCat'] == subsub),
+						agg_map))
 
 					for mon in submap[subsub]:
-						mm = df_summary.loc[df_summary['Monster']==mon].iloc[0]
-						rows.append({'level':3, 'Name':mon, **{m:int(mm[m]) for m in agg_map}})
-
+						rows.append(build_row(3, mon, df_summary,
+							df_summary['Monster'] == mon,
+							agg_map))
 			else:
 				for mon in submap:
-					mm = df_summary.loc[df_summary['Monster']==mon].iloc[0]
-					rows.append({'level':3, 'Name':mon, **{m:int(mm[m]) for m in agg_map}})
+					rows.append(build_row(3, mon, df_summary,
+						df_summary['Monster'] == mon,
+						agg_map))
 
 	df_display = pd.DataFrame(rows)
 
@@ -208,13 +215,13 @@ app.layout = html.Div([
 		dcc.Dropdown(
 			id='dataset-dropdown',
 			options=[
-				{'label': 'All', 'value': 'all'},
-				{'label': 'MHWI', 'value': 'MHWI'},
-				{'label': 'MHRS', 'value': 'MHRS'},
+				{'label': 'Monster Hunter Series', 'value': 'Monster Hunter Series'},
+				{'label': 'Monster Hunter Rise Sunbreak', 'value': 'Monster Hunter Rise Sunbreak'},
+				{'label': 'Monster Hunter World Iceborne', 'value': 'Monster Hunter World Iceborne'},
 			],
-			value='all',
+			value='Monster Hunter Series',
 			clearable=False,
-			style={'width': '200px'}
+			style={'width': '350px'}
 		)
 	], style={'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center', 'marginBottom': '20px'}),
 	html.Div(id='table-container')
