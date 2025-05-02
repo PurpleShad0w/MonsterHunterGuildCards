@@ -1,7 +1,7 @@
 import pandas as pd
 import dash
 from dash import html, dcc
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import numpy as np
 import os
 
@@ -112,7 +112,7 @@ for cfg in DATASETS.values():
 		except FileNotFoundError:
 			icon_available[folder] = set()
 
-def generate_table(dataset_key):
+def generate_table(dataset_key, dark_mode=False):
 	cfg = DATASETS[dataset_key]
 	agg_map = cfg['agg']
 	display_names = cfg.get('display_names', {})
@@ -179,12 +179,22 @@ def generate_table(dataset_key):
 
 	df_display = pd.DataFrame(rows)
 
-	base_cell = {'border': '1px solid #ccc', 'padding': '8px'}
+	if dark_mode:
+		page_bg = '#121212'
+		text_color = '#E0E0E0'
+		border_color = '#333333'
+		level_bg = {0: '#263238', 1: '#37474f', 2: '#455a64', 3: '#546e7a'}
+
+	else:
+		page_bg = '#ffffff'
+		text_color = '#000000'
+		border_color = '#ccc'
+		level_bg = {0: '#4a6741', 1: '#7f9c6b', 2: '#b6c9a6', 3: '#e9f2e3',}
+
+	base_cell = {'border': f'1px solid {border_color}', 'padding': '8px', 'color': text_color}
 	icon_cell = {**base_cell, 'width': '10px', 'textAlign': 'center'}
 	name_cell = {**base_cell, 'textAlign': 'left'}
 	number_cell = {**base_cell, 'textAlign': 'right'}
-	# level_bg = {0: '#394867', 1: '#6c7b95', 2: '#aab6c9', 3: '#f0f4f8'} # Muted Indigo
-	level_bg = {0: '#4a6741', 1: '#7f9c6b', 2: '#b6c9a6', 3: '#e9f2e3'} # Forest Green
 
 	def render_row(row):
 		found_src = None
@@ -208,33 +218,82 @@ def generate_table(dataset_key):
 		html.Th(display_names.get(col, col), style={**base_cell, 'textAlign': 'right'}) for col in agg_map
 	]
 
-	return html.Table([
+	table = html.Table([
 		html.Thead(html.Tr(header_cells)),
 		html.Tbody([render_row(r) for _, r in df_display.iterrows()])
-	], style={'width': '100%', 'borderCollapse': 'collapse'})
+	], style={'width':'100%', 'borderCollapse':'collapse'})
+
+	return html.Div(table, style={'backgroundColor': page_bg, 'padding':'20px'})
 
 
-app.layout = html.Div([
-	html.Div([
-		html.H1('Monster Hunting Log', style={'margin': '0'}),
+app.layout = html.Div(id='page-container', children=[
+	dcc.Store(id='dark-mode-store', data={'dark': True}),
+	html.Div(id='page-header', style={
+		'display': 'flex',
+		'justifyContent': 'space-between',
+		'alignItems': 'center',
+		'marginBottom': '5px'
+	}, children=[
+		html.Div([
+			html.Button('Light Mode', id='dark-mode-button', n_clicks=0, style={'marginRight': '15px'}),
+			html.H1('Monster Hunting Log', id='page-title', style={'margin': '0', 'marginLeft': '15px'})
+		], style={'display': 'flex', 'alignItems': 'center'}),
 		dcc.Dropdown(
 			id='dataset-dropdown',
-			options=[
-				{'label': 'Monster Hunter Series', 'value': 'Monster Hunter Series'},
-				{'label': 'Monster Hunter Rise Sunbreak', 'value': 'Monster Hunter Rise Sunbreak'},
-				{'label': 'Monster Hunter World Iceborne', 'value': 'Monster Hunter World Iceborne'},
-			],
+			options=[{'label': k, 'value': k} for k in DATASETS],
 			value='Monster Hunter Series',
 			clearable=False,
 			style={'width': '350px'}
 		)
-	], style={'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center', 'marginBottom': '20px'}),
+	]),
 	html.Div(id='table-container')
-])
+], style={'minHeight': '100vh', 'margin': '0', 'padding': '20px'})
 
 
-@app.callback(Output('table-container', 'children'), Input('dataset-dropdown', 'value'))
-def update_table(selected_dataset):
-	return generate_table(selected_dataset)
+@app.callback(
+	[Output('table-container', 'children'),
+	Output('page-container', 'style'),
+	Output('page-title', 'style'),
+	Output('dark-mode-store', 'data'),
+	Output('dark-mode-button', 'children'),
+	Output('dark-mode-button', 'style')],
+	[Input('dataset-dropdown', 'value'),
+	Input('dark-mode-button', 'n_clicks')],
+	[State('dark-mode-store', 'data')]
+)
+
+def update(selected_dataset, n_clicks, store):
+	ctx = dash.callback_context
+	dark = store.get('dark', False)
+	if ctx.triggered and ctx.triggered[0]['prop_id'].startswith('dark-mode-button'):
+		dark = not dark
+
+	page_style = {
+		'backgroundColor': '#121212' if dark else '#ffffff',
+		'minHeight': '100vh', 'margin': '0', 'padding': '20px'
+	}
+
+	title_style = {
+		'margin': '0', 'marginLeft': '15px',
+		'color': '#E0E0E0' if dark else '#000000'
+	}
+
+	btn_label = 'Light Mode' if dark else 'Dark Mode'
+	btn_style = {
+		'height': '30px', 'width': '100px', 'borderRadius': '15px', 'border': 'none',
+		'cursor': 'pointer',
+		'backgroundColor': '#37474f' if dark else '#e0e0e0',
+		'color': '#ffffff' if dark else '#000000',
+		'marginRight': '15px'
+	}
+
+	return (
+		generate_table(selected_dataset, dark),
+		page_style,
+		title_style,
+		{'dark': dark},
+		btn_label,
+		btn_style
+	)
 
 app.run()
