@@ -37,11 +37,16 @@ def safe_categories(monster):
 
 DATASETS = {
 	'Monster Hunter Series': {
-		'files': ['data/Monster Hunter Rise Sunbreak.tsv',
-				'data/Monster Hunter World Iceborne.tsv'],
-		'icon_folders': ['icons/Monster Hunter Wilds',
-						'icons/Monster Hunter Rise Sunbreak',
-						'icons/Monster Hunter World Iceborne'],
+		'files': [
+			'data/Monster Hunter Rise Sunbreak.tsv',
+			'data/Monster Hunter World Iceborne.tsv'
+		],
+		'icon_folders': [
+			'icons/Monster Hunter Wilds',
+			'icons/Monster Hunter Rise Sunbreak',
+			'icons/Monster Hunter World Iceborne',
+			'icons/Monster Hunter Generations Ultimate'
+		],
 		'agg': {
 			'Hunted': 'sum',
 			'Slain': 'sum',
